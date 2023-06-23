@@ -1,3 +1,3 @@
-import main from '../data/file-manager.js';
+import main from './fileManager/fileManager.js';
 
 main();

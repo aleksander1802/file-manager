@@ -19,6 +19,6 @@ export async function cd(currentDir, args) {
       return absoluteTargetPath;
     }
   } catch (error) {
-    throw new Error(`Invalid path: ${targetPath}`);
+    throw new Error(`Operation failed`);
   }
 }

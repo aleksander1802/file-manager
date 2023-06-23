@@ -1,5 +1,6 @@
-import { cd as changeDirectory } from '../bin/changeDirectory/changeDirectory.js';
-import { up as upDirectory } from '../bin/up/up.js';
+import { cd as changeDirectory } from '../cd/changeDirectory.js';
+import { up as upDirectory } from '../up/up.js';
+import { ls as listOfFiles } from '../ls/listOfFiles.js';
 import readline from 'readline';
 import os from 'os';
 
@@ -35,7 +36,7 @@ async function main() {
 
   while (true) {
     try {
-      const input = await askUserInput(`${currentDir}> `);
+      const input = await askUserInput(`> `);
       const [commandName, ...args] = input.split(' ');
       switch (commandName) {
         case 'cd':
@@ -44,16 +45,28 @@ async function main() {
 
             currentDir = newDir;
           } catch (err) {
-            console.error(err.message);
+            console.error(`Invalid input`);
           }
           break;
         case 'up':
           try {
+            if (!!args.length) {
+              throw new Error('Invalid input');
+            }
+
             const newDir = await upDirectory(currentDir);
 
             currentDir = newDir;
           } catch (err) {
-            console.error(err.message);
+            console.error(`Invalid input`);
+          }
+          break;
+        case 'ls':
+          try {
+            const currentList = await listOfFiles(currentDir);
+            console.table(currentList);
+          } catch (err) {
+            console.error(`Operation failed`);
           }
           break;
         case 'exit':
@@ -63,12 +76,12 @@ async function main() {
           rl.close();
           return;
         default:
-          console.log(`Unknown command: ${commandName}`);
+          console.log(`Invalid input`);
           break;
       }
       console.log(`You are currently in ${currentDir}`);
     } catch (err) {
-      console.error(err.message);
+      console.error('Operation failed');
     }
   }
 }
