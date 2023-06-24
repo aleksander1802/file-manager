@@ -22,7 +22,11 @@ export const cat = async (path) => {
       });
 
       readableStream.on('error', (error) => {
-        reject(error);
+        if (error.code === 'EPERM') {
+          reject(`Operation failed`);
+        } else {
+          reject(`Invalid input`);
+        }
       });
     });
   } catch (error) {

@@ -3,6 +3,7 @@ import { up as upDirectory } from '../up/up.js';
 import { ls as listOfFiles } from '../ls/listOfFiles.js';
 import { cat as readFile } from '../basic/cat.js';
 import { add as createFile } from '../basic/add.js';
+import { rn as renameFile } from '../basic/rn.js';
 import readline from 'readline';
 import os from 'os';
 
@@ -75,7 +76,7 @@ async function main() {
           try {
             await readFile(args);
           } catch (err) {
-            console.error(err.message)
+            console.error(err);
           }
           break;
         case 'add':
@@ -83,6 +84,17 @@ async function main() {
             await createFile(args, currentDir);
           } catch (err) {
             console.error(err);
+          }
+          break;
+        case 'rn':
+          try {
+            await renameFile(args);
+          } catch (err) {
+            if (err.code === 'ERR_INVALID_ARG_TYPE') {
+              console.error(`Invalid input`);
+            } else {
+              console.error(`Operation failed`);
+            }
           }
           break;
         case 'exit':
