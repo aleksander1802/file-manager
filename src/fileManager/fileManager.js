@@ -1,6 +1,8 @@
 import { cd as changeDirectory } from '../cd/changeDirectory.js';
 import { up as upDirectory } from '../up/up.js';
 import { ls as listOfFiles } from '../ls/listOfFiles.js';
+import { cat as readFile } from '../basic/cat.js';
+import { add as createFile } from '../basic/add.js';
 import readline from 'readline';
 import os from 'os';
 
@@ -69,6 +71,20 @@ async function main() {
             console.error(`Operation failed`);
           }
           break;
+        case 'cat':
+          try {
+            await readFile(args);
+          } catch (err) {
+            console.error(err.message)
+          }
+          break;
+        case 'add':
+          try {
+            await createFile(args, currentDir);
+          } catch (err) {
+            console.error(err);
+          }
+          break;
         case 'exit':
           console.log(
             `Thank you for using File Manager, ${username}, goodbye!`,
@@ -79,6 +95,7 @@ async function main() {
           console.log(`Invalid input`);
           break;
       }
+
       console.log(`You are currently in ${currentDir}`);
     } catch (err) {
       console.error('Operation failed');
