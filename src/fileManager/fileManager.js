@@ -4,6 +4,7 @@ import { ls as listOfFiles } from '../ls/listOfFiles.js';
 import { cat as readFile } from '../basic/cat.js';
 import { add as createFile } from '../basic/add.js';
 import { rn as renameFile } from '../basic/rn.js';
+import { cp as copyFile } from '../basic/cp.js';
 import readline from 'readline';
 import os from 'os';
 
@@ -94,6 +95,17 @@ async function main() {
               console.error(`Invalid input`);
             } else {
               console.error(`Operation failed`);
+            }
+          }
+          break;
+        case 'cp':
+          try {
+            await copyFile(args);
+          } catch (err) {
+            if (err.code === 'ERR_INVALID_ARG_TYPE') {
+              console.error(`Invalid input`);
+            } else {
+              console.error(err);
             }
           }
           break;
