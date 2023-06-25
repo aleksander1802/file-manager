@@ -9,6 +9,8 @@ import { mv as moveFile } from '../basic/mv.js';
 import { rm as removeFile } from '../basic/rm.js';
 import { handleOs } from '../os/os.js';
 import { hashCalculate } from '../hash/hash.js';
+import { compress as compressFile } from '../zip/compress.js';
+import { decompress as decompressFile } from '../zip/decompress.js';
 import readline from 'readline';
 import os from 'os';
 
@@ -157,6 +159,28 @@ async function main() {
             }
           }
           break;
+        case 'compress':
+          try {
+            await compressFile(args);
+          } catch (err) {
+            if (err.code === 'ERR_INVALID_ARG_TYPE') {
+              console.error(`Invalid input`);
+            } else {
+              console.error(`Operation failed`);
+            }
+          }
+          break;
+        case 'decompress':
+          try {
+            await decompressFile(args);
+          } catch (err) {
+            if (err.code === 'ERR_INVALID_ARG_TYPE') {
+              console.error(`Invalid input`);
+            } else {
+              console.error(`Operation failed`);
+            }
+          }
+          break;
         case 'exit':
           console.log(
             `Thank you for using File Manager, ${username}, goodbye!`,
@@ -170,7 +194,11 @@ async function main() {
 
       console.log(`You are currently in ${currentDir}`);
     } catch (err) {
-      console.error('Operation failed');
+      if (err.code === 'ERR_INVALID_ARG_TYPE') {
+        console.error(`Invalid input`);
+      } else {
+        console.error(`Operation failed`);
+      }
     }
   }
 }
