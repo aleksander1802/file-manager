@@ -1,3 +1,4 @@
+import { errorHandle } from '../helpers/errorHandler.js';
 import fs from 'fs';
 import { resolve } from 'path';
 
@@ -15,14 +16,10 @@ export const add = async (path, currentDir) => {
       });
 
       writableStream.on('error', (error) => {
-        if (error.code === 'EPERM') {
-          reject(`Operation failed`);
-        } else {
-          reject(`Invalid input`);
-        }
+        reject(error);
       });
     });
   } catch (error) {
-    console.error(error);
+    errorHandle(error);
   }
 };

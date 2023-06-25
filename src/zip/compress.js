@@ -2,6 +2,7 @@ import fs from 'fs';
 import zlib from 'zlib';
 import path, { resolve } from 'path';
 import { pipeline } from 'stream/promises';
+import { errorHandle } from '../helpers/errorHandler.js';
 
 const br = '.br';
 
@@ -30,11 +31,7 @@ export const compress = async (args) => {
     await pipeline(inputStream, brotliStream, outputStream);
 
     console.log(`File compressed to "${newFilename}"`);
-  } catch (err) {
-    if (err.code === 'ERR_INVALID_ARG_TYPE') {
-      console.error(`Invalid input`);
-    } else {
-      console.error(`Operation failed`);
-    }
+  } catch (error) {
+    errorHandle(error);
   }
 };

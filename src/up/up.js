@@ -1,16 +1,16 @@
+import { errorHandle } from '../helpers/errorHandler.js';
 import fs from 'fs/promises';
-import path, { resolve } from 'path';
+import path from 'path';
 
 export async function up(currentDir) {
-  let absoluteTargetPath = resolve(path.dirname(currentDir));
-
   try {
+    let absoluteTargetPath = path.dirname(currentDir);
     const stats = await fs.stat(absoluteTargetPath);
 
     if (stats.isDirectory()) {
       return absoluteTargetPath;
     }
   } catch (error) {
-    console.error('Operation failed');
+    errorHandle(error);
   }
 }

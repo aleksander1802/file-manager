@@ -1,3 +1,4 @@
+import { errorHandle } from '../helpers/errorHandler.js';
 import fs from 'fs';
 import { resolve } from 'path';
 
@@ -22,14 +23,10 @@ export const cat = async (path) => {
       });
 
       readableStream.on('error', (error) => {
-        if (error.code === 'EPERM') {
-          reject(`Operation failed`);
-        } else {
-          reject(`Invalid input`);
-        }
+        reject(error);
       });
     });
   } catch (error) {
-    console.error(error);
+    errorHandle(error);
   }
 };

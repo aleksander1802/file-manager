@@ -1,3 +1,4 @@
+import { errorHandle } from '../helpers/errorHandler.js';
 import { cd as changeDirectory } from '../cd/changeDirectory.js';
 import { up as upDirectory } from '../up/up.js';
 import { ls as listOfFiles } from '../ls/listOfFiles.js';
@@ -52,89 +53,75 @@ async function main() {
         case 'cd':
           try {
             const newDir = await changeDirectory(currentDir, args);
-
-            currentDir = newDir;
-          } catch (err) {
-            console.error(`Invalid input`);
+            if (newDir) {
+              currentDir = newDir;
+            }
+          } catch (error) {
+            errorHandle(error);
           }
           break;
         case 'up':
           try {
             if (!!args.length) {
-              throw new Error('Invalid input');
+              throw new Error();
             }
 
             const newDir = await upDirectory(currentDir);
 
-            currentDir = newDir;
-          } catch (err) {
-            console.error(`Invalid input`);
+            if (newDir) {
+              currentDir = newDir;
+            }
+          } catch (error) {
+            errorHandle(error);
           }
           break;
         case 'ls':
           try {
-            const currentList = await listOfFiles(currentDir);
-            console.table(currentList);
-          } catch (err) {
-            console.error(`Operation failed`);
+            await listOfFiles(currentDir);
+          } catch (error) {
+            errorHandle(error);
           }
           break;
         case 'cat':
           try {
             await readFile(args);
-          } catch (err) {
-            console.error(err);
+          } catch (error) {
+            errorHandle(error);
           }
           break;
         case 'add':
           try {
             await createFile(args, currentDir);
-          } catch (err) {
-            console.error(err);
+          } catch (error) {
+            errorHandle(error);
           }
           break;
         case 'rn':
           try {
             await renameFile(args);
-          } catch (err) {
-            if (err.code === 'ERR_INVALID_ARG_TYPE') {
-              console.error(`Invalid input`);
-            } else {
-              console.error(`Operation failed`);
-            }
+          } catch (error) {
+            errorHandle(error);
           }
           break;
         case 'cp':
           try {
             await copyFile(args);
-          } catch (err) {
-            if (err.code === 'ERR_INVALID_ARG_TYPE') {
-              console.error(`Invalid input`);
-            } else {
-              console.error(`Operation failed`);
-            }
+          } catch (error) {
+            errorHandle(error);
           }
           break;
         case 'mv':
           try {
             await moveFile(args);
-          } catch (err) {
-            if (err.code === 'ERR_INVALID_ARG_TYPE') {
-              console.error(`Invalid input`);
-            } else {
-              console.error(`Operation failed`);
-            }
+          } catch (error) {
+            errorHandle(error);
           }
           break;
         case 'rm':
           try {
             await removeFile(...args);
-          } catch (err) {
-            if (err.code === 'ERR_INVALID_ARG_TYPE') {
-              console.error(`Invalid input`);
-            } else {
-              console.error(`Operation failed`);
-            }
+          } catch (error) {
+            errorHandle(error);
           }
           break;
         case 'os':
@@ -193,12 +180,8 @@ async function main() {
       }
 
       console.log(`You are currently in ${currentDir}`);
-    } catch (err) {
-      if (err.code === 'ERR_INVALID_ARG_TYPE') {
-        console.error(`Invalid input`);
-      } else {
-        console.error(`Operation failed`);
-      }
+    } catch (error) {
+      errorHandle(error);
     }
   }
 }

@@ -1,3 +1,4 @@
+import { errorHandle } from '../helpers/errorHandler.js';
 import fs from 'fs/promises';
 
 export const ls = async (currentDir) => {
@@ -23,8 +24,8 @@ export const ls = async (currentDir) => {
       }
     });
 
-    return sortedList;
+    console.table(sortedList);
   } catch (error) {
-    base.printError(error);
+    errorHandle(error);
   }
 };

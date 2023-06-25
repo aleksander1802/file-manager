@@ -1,3 +1,4 @@
+import { errorHandle } from '../helpers/errorHandler.js';
 import fs from 'fs';
 import { resolve } from 'path';
 
@@ -7,14 +8,8 @@ export const rn = async (args) => {
     const newFilename = resolve(args[1]);
 
     await fs.promises.rename(pathToFile, newFilename);
-    console.log(`File renamed from ${pathToFile} to ${newFilename}`);
+    console.log(`The file was renamed`);
   } catch (error) {
-    if (error.code === 'ENOENT') {
-      console.error('Invalid input');
-    } else if (error.code === 'ERR_INVALID_ARG_TYPE') {
-      console.error('Invalid input');
-    } else {
-      console.error(`Operation failed`);
-    }
+    errorHandle(error);
   }
 };

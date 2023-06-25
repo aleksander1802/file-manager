@@ -1,14 +1,15 @@
+import { errorHandle } from '../helpers/errorHandler.js';
 import fs, { promises as fsPromises } from 'fs';
 import path, { resolve as resolvePath } from 'path';
 
 export const mv = async (args) => {
   try {
-    if (!args || args.length < 2) {
-      throw new Error('Invalid input');
-    }
-
     const sourceFilePath = resolvePath(args[0]);
     const destinationFilePath = resolvePath(args[1]);
+
+    if (!destinationFilePath) {
+      throw new Error();
+    }
 
     const readableStream = fs.createReadStream(sourceFilePath, {
       encoding: 'utf-8',
@@ -32,26 +33,14 @@ export const mv = async (args) => {
           resolve();
         });
         writableStream.on('error', (error) => {
-          if (error.code === 'ERR_INVALID_ARG_TYPE') {
-            reject(`Invalid input`);
-          } else {
-            reject(`Operation failed`);
-          }
+          reject(error);
         });
       });
       readableStream.on('error', (error) => {
-        if (error.code === 'ERR_INVALID_ARG_TYPE') {
-          reject(`Invalid input`);
-        } else {
-          reject(`Operation failed`);
-        }
+        reject(error);
       });
     });
   } catch (error) {
-    if (error.code === 'ERR_INVALID_ARG_TYPE') {
-      console.error(`Invalid input`);
-    } else {
-      console.error(`Operation failed`);
-    }
+    errorHandle(error);
   }
 };
