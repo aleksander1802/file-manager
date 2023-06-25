@@ -5,6 +5,8 @@ import { cat as readFile } from '../basic/cat.js';
 import { add as createFile } from '../basic/add.js';
 import { rn as renameFile } from '../basic/rn.js';
 import { cp as copyFile } from '../basic/cp.js';
+import { mv as moveFile } from '../basic/mv.js';
+import { rm as removeFile } from '../basic/rm.js';
 import readline from 'readline';
 import os from 'os';
 
@@ -105,7 +107,29 @@ async function main() {
             if (err.code === 'ERR_INVALID_ARG_TYPE') {
               console.error(`Invalid input`);
             } else {
-              console.error(err);
+              console.error(`Operation failed`);
+            }
+          }
+          break;
+        case 'mv':
+          try {
+            await moveFile(args);
+          } catch (err) {
+            if (err.code === 'ERR_INVALID_ARG_TYPE') {
+              console.error(`Invalid input`);
+            } else {
+              console.error(`Operation failed`);
+            }
+          }
+          break;
+        case 'rm':
+          try {
+            await removeFile(...args);
+          } catch (err) {
+            if (err.code === 'ERR_INVALID_ARG_TYPE') {
+              console.error(`Invalid input`);
+            } else {
+              console.error(`Operation failed`);
             }
           }
           break;
