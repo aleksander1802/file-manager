@@ -1,3 +1,4 @@
+import { errorHandle } from '../helpers/errorHandler.js';
 import os from 'os';
 
 export async function handleOs(args) {
@@ -30,10 +31,6 @@ export async function handleOs(args) {
         break;
     }
   } catch (error) {
-    if (error.code === 'ERR_INVALID_ARG_TYPE') {
-      console.error(`Invalid input`);
-    } else {
-      console.error(`Operation failed`);
-    }
+    errorHandle(error);
   }
 }

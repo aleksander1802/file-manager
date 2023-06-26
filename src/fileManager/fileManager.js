@@ -127,45 +127,29 @@ async function main() {
         case 'os':
           try {
             await handleOs(...args);
-          } catch (err) {
-            if (err.code === 'ERR_INVALID_ARG_TYPE') {
-              console.error(`Invalid input`);
-            } else {
-              console.error(`Operation failed`);
-            }
+          } catch (error) {
+            errorHandle(error);
           }
           break;
         case 'hash':
           try {
             await hashCalculate(...args);
-          } catch (err) {
-            if (err.code === 'ERR_INVALID_ARG_TYPE') {
-              console.error(`Invalid input`);
-            } else {
-              console.error(`Operation failed`);
-            }
+          } catch (error) {
+            errorHandle(error);
           }
           break;
         case 'compress':
           try {
             await compressFile(args);
-          } catch (err) {
-            if (err.code === 'ERR_INVALID_ARG_TYPE') {
-              console.error(`Invalid input`);
-            } else {
-              console.error(`Operation failed`);
-            }
+          } catch (error) {
+            errorHandle(error);
           }
           break;
         case 'decompress':
           try {
             await decompressFile(args);
-          } catch (err) {
-            if (err.code === 'ERR_INVALID_ARG_TYPE') {
-              console.error(`Invalid input`);
-            } else {
-              console.error(`Operation failed`);
-            }
+          } catch (error) {
+            errorHandle(error);
           }
           break;
         case 'exit':
