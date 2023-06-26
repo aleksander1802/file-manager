@@ -13,6 +13,6 @@ export const hashCalculate = async (path) => {
 
     console.log(hash);
   } catch (error) {
-    errorHandle(error);
+    errorHandle();
   }
 };

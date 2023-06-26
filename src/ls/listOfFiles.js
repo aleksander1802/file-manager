@@ -26,6 +26,6 @@ export const ls = async (currentDir) => {
 
     console.table(sortedList);
   } catch (error) {
-    errorHandle(error);
+    errorHandle();
   }
 };

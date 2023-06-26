@@ -20,6 +20,6 @@ export const add = async (path, currentDir) => {
       });
     });
   } catch (error) {
-    errorHandle(error);
+    errorHandle();
   }
 };

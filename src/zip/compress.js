@@ -32,6 +32,6 @@ export const compress = async (args) => {
 
     console.log(`File compressed to "${newFilename}"`);
   } catch (error) {
-    errorHandle(error);
+    errorHandle();
   }
 };

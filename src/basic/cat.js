@@ -27,6 +27,6 @@ export const cat = async (path) => {
       });
     });
   } catch (error) {
-    errorHandle(error);
+    errorHandle();
   }
 };

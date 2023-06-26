@@ -34,6 +34,6 @@ export const decompress = async (args) => {
 
     console.log(`File decompressed to "${pathNewFile}"`);
   } catch (error) {
-    errorHandle(error);
+    errorHandle();
   }
 };

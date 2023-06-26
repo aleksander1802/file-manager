@@ -27,10 +27,10 @@ export async function handleOs(args) {
         console.log(`CPU architecture: ${os.arch()}`);
         break;
       default:
-        console.log(`Invalid input`);
+        console.error(`Invalid input`);
         break;
     }
   } catch (error) {
-    errorHandle(error);
+    errorHandle();
   }
 }

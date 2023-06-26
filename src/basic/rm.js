@@ -6,6 +6,6 @@ export const rm = async (args) => {
     await fs.unlink(args);
     console.log(`The file has been deleted`);
   } catch (error) {
-    errorHandle(error);
+    errorHandle();
   }
 };

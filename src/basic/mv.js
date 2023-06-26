@@ -41,6 +41,6 @@ export const mv = async (args) => {
       });
     });
   } catch (error) {
-    errorHandle(error);
+    errorHandle();
   }
 };

@@ -22,6 +22,6 @@ export async function cd(currentDir, args) {
       throw new Error();
     }
   } catch (error) {
-    errorHandle(error);
+    errorHandle();
   }
 }

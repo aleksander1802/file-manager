@@ -57,99 +57,95 @@ async function main() {
               currentDir = newDir;
             }
           } catch (error) {
-            errorHandle(error);
+            errorHandle();
           }
           break;
         case 'up':
           try {
-            if (!!args.length) {
-              throw new Error();
-            }
-
             const newDir = await upDirectory(currentDir);
 
             if (newDir) {
               currentDir = newDir;
             }
           } catch (error) {
-            errorHandle(error);
+            errorHandle();
           }
           break;
         case 'ls':
           try {
             await listOfFiles(currentDir);
           } catch (error) {
-            errorHandle(error);
+            errorHandle();
           }
           break;
         case 'cat':
           try {
             await readFile(args);
           } catch (error) {
-            errorHandle(error);
+            errorHandle();
           }
           break;
         case 'add':
           try {
             await createFile(args, currentDir);
           } catch (error) {
-            errorHandle(error);
+            errorHandle();
           }
           break;
         case 'rn':
           try {
             await renameFile(args);
           } catch (error) {
-            errorHandle(error);
+            errorHandle();
           }
           break;
         case 'cp':
           try {
             await copyFile(args);
           } catch (error) {
-            errorHandle(error);
+            errorHandle();
           }
           break;
         case 'mv':
           try {
             await moveFile(args);
           } catch (error) {
-            errorHandle(error);
+            errorHandle();
           }
           break;
         case 'rm':
           try {
             await removeFile(...args);
           } catch (error) {
-            errorHandle(error);
+            errorHandle();
           }
           break;
         case 'os':
           try {
             await handleOs(...args);
           } catch (error) {
-            errorHandle(error);
+            errorHandle();
           }
           break;
         case 'hash':
           try {
             await hashCalculate(...args);
           } catch (error) {
-            errorHandle(error);
+            errorHandle();
           }
           break;
         case 'compress':
           try {
             await compressFile(args);
           } catch (error) {
-            errorHandle(error);
+            errorHandle();
           }
           break;
         case 'decompress':
           try {
             await decompressFile(args);
           } catch (error) {
-            errorHandle(error);
+            errorHandle();
           }
           break;
         case 'exit':
@@ -159,13 +155,13 @@ async function main() {
           rl.close();
           return;
         default:
-          console.log(`Invalid input`);
+          console.error(`Invalid input`);
           break;
       }
 
       console.log(`You are currently in ${currentDir}`);
     } catch (error) {
-      errorHandle(error);
+      errorHandle();
     }
   }
 }

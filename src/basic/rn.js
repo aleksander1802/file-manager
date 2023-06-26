@@ -10,6 +10,6 @@ export const rn = async (args) => {
     await fs.promises.rename(pathToFile, newFilename);
     console.log(`The file was renamed`);
   } catch (error) {
-    errorHandle(error);
+    errorHandle();
   }
 };

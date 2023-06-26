@@ -47,6 +47,6 @@ export const cp = async (args) => {
       });
     });
   } catch (error) {
-    errorHandle(error);
+    errorHandle();
   }
 };

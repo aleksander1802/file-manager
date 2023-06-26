@@ -11,6 +11,6 @@ export async function up(currentDir) {
       return absoluteTargetPath;
     }
   } catch (error) {
-    errorHandle(error);
+    errorHandle();
   }
 }
