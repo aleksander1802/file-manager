@@ -39,7 +39,7 @@ async function main() {
 
   rl.on('SIGINT', () => {
     console.log(
-      `\n Thank you for using File Manager, ${username}, goodbye! \n`,
+      `Thank you for using File Manager, ${username}, goodbye!`,
     );
     rl.close();
     process.exit();
